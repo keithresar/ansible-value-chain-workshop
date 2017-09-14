@@ -1,0 +1,19 @@
+- hosts: lab
+  become: yes
+
+  tasks:
+   - name: Install Apache
+     yum:
+       name: httpd
+       state: present
+
+   - name: Configure Apache
+     template:
+       src: templates/httpd.conf.j2
+       dest: /etc/httpd/conf.d/
+
+   - name: Start the Apache web server
+     service:
+       name: httpd
+       state: started
+
