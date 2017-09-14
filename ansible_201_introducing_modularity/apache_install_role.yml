@@ -1,0 +1,37 @@
+#
+# First, we need to create the role with this command:
+#
+#  > ansible-galaxy init apache_install
+#
+# Then we populate the files residing in:
+#
+#  apache_install/
+#    tasks/
+#    handlers/
+#    templates/
+#
+
+- hosts: lab
+  become: yes
+
+  tasks:
+   - name: Install Apache
+     yum:
+       name: httpd
+       state: present
+
+   - name: Configure Apache
+     template:
+       src: templates/httpd.conf.j2
+       dest: /etc/httpd/conf.d/
+     notify: restart httpd
+
+   - name: Start the Apache web server
+
+
+  handlers:
+   - name: restart httpd
+     service:
+       name: httpd
+       state: restarted
+
