@@ -1,0 +1,19 @@
+- hosts: dns_server
+  become: yes
+
+  tasks:
+    - name: add user operator
+      win_user:
+        name: operator
+        password: 0p$4@ll
+
+    - name: Add or update registry path MyCompany, with entry 'hello', and containing 'world'
+      win_regedit:
+        key: HKCU:\Software\MyCompany
+        name: hello
+        data: world
+
+    - name: install dns server
+      win_feature:
+        name: DNS
+        state: present
