@@ -1,4 +1,5 @@
-- hosts: dns_server
+
+- hosts: web_server
   become: yes
 
   tasks:
@@ -13,7 +14,26 @@
         name: hello
         data: world
 
-    - name: install dns server
+    - name: Install Web Server
       win_feature:
-        name: DNS
+        name: Web-Server
         state: present
+
+    - name: Create web directory
+      win_file:
+        path: c:\www
+        state: directory
+
+    - name: Create web index
+      win_lineinfile:
+        path: C:\www\index.html
+        create: yes
+        line: "Hello World from {{ ansible_hostname }} at {{ ansible_ssh_host }}"
+
+    - name: Build web site
+      win_iis_website:
+        name: "Web site"
+        hostname: "www.{{ ansible_ssh_host }}.xip.io"
+        physical_path: c:\www
+
+
