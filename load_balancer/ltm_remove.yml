@@ -1,0 +1,17 @@
+- hosts: f5_ltm
+  connection: local
+
+  tasks:
+    - name: "Remove {{ web_server_ip }} from my-pool"
+      bigip_pool:
+        server: "{{ ansible_ssh_host }}"
+        server_port: 8443
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+
+        state: "absent"
+        name: "my-pool"
+        address: "{{ web_server_ip }}"
+        port: 80
+

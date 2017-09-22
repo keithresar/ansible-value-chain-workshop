@@ -1,0 +1,30 @@
+- hosts: f5_ltm
+  connection: local
+
+  tasks:
+    - name: Collect BIG-IP facts
+      bigip_facts:
+        server: "{{ ansible_ssh_host }}"
+        server_port: 8443
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+
+        include: "system_info"
+      register: f5_facts
+
+    - name: F5 Version
+      debug: msg="{{f5_facts.ansible_facts.system_info.product_information.product_version}}"
+
+    - name: Create my-pool
+      bigip_pool:
+        server: "{{ ansible_ssh_host }}"
+        server_port: 8443
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+
+        state: "present"
+        name: "my-pool"
+
+
