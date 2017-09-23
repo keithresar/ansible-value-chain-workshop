@@ -1,0 +1,15 @@
+- hosts: lab_server
+
+  tasks:
+    - name: Clone our project
+      git:
+        repo: https://github.com/jboss-developer/jboss-eap-quickstarts.git
+        dest: /opt/jboss-eap-quickstarts
+
+    - name: Build and deploy project using maven
+      command: mvn clean package wildfly:deploy
+      args:
+        chdir: /opt/jboss-eap-quickstarts/helloworld-html5
+      environment:
+        JAVA_HOME: /usr/lib/jvm/java
+
