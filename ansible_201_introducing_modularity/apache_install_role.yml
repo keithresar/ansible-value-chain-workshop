@@ -26,8 +26,6 @@
        dest: /etc/httpd/conf.d/
      notify: restart httpd
 
-   - name: Start the Apache web server
-
 
   handlers:
    - name: restart httpd
