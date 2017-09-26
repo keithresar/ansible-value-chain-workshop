@@ -1,4 +1,4 @@
-- hosts: lab
+- hosts: lab_server
   become: yes
 
   tasks:
