@@ -1,4 +1,4 @@
-- hosts: lab
+- hosts: lab_server
   become: yes
 
   tasks:
@@ -10,7 +10,7 @@
    - name: Configure Apache
      template:
        src: templates/httpd.conf.j2
-       dest: /etc/httpd/conf.d/
+       dest: /etc/httpd/conf.d/httpd.conf
      notify: restart httpd
 
 

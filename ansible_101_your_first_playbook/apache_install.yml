@@ -10,7 +10,7 @@
    - name: Configure Apache
      template:
        src: templates/httpd.conf.j2
-       dest: /etc/httpd/conf.d/
+       dest: /etc/httpd/conf.d/httpd.conf
 
    - name: Start the Apache web server
      service:
