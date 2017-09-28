@@ -1,6 +1,5 @@
 
 - hosts: web_server
-  become: yes
 
   tasks:
     - name: add user operator
