@@ -1,4 +1,4 @@
-- hosts: lab_server
+- hosts: linux_mw
 
   tasks:
     - name: Install Maven from archive
