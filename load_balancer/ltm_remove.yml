@@ -1,6 +1,9 @@
 - hosts: f5_ltm
   connection: local
 
+  vars:
+    web_server_ip: 132.200.20.10
+
   tasks:
     - name: "Remove {{ web_server_ip }} from my-pool"
       bigip_pool:

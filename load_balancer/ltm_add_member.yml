@@ -1,5 +1,8 @@
 - hosts: f5_ltm
   connection: local
+  
+  vars:
+    web_server_ip: 132.200.20.10
 
   tasks:
     - name: "Add {{ web_server_ip }} to my-pool"
