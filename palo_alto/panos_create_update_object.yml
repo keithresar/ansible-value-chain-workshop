@@ -1,0 +1,43 @@
+- hosts: palo_alto
+  connection: local
+
+  tasks:
+    - name: Verify if lab_networks already exists
+      panos_object:
+        ip_address: "{{ ansible_ssh_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+
+        tag_name: 'lab_networks'
+        operation: 'find'
+      ignore_errors: True
+      register: lab_networks
+
+
+    - name: Create an object for our address group
+      panos_object:
+        ip_address: "{{ ansible_ssh_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+
+        address: '132.200.20.0/24'
+        address_type: 'ip-netmask'
+        description: 'Lab Environment Networks'
+        tag_name: 'lab_networks'
+        operation: 'add'
+      when: lab_networks.failed
+
+    - name: Change existing object for our address group
+      panos_object:
+        ip_address: "{{ ansible_ssh_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+
+        address: '132.200.20.0/24'
+        address_type: 'ip-netmask'
+        description: 'Lab Environment Networks'
+        tag_name: 'lab_networks'
+        operation: 'update'
+      when: not lab_networks.failed
+
+

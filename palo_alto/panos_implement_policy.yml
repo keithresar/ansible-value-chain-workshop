@@ -1,0 +1,16 @@
+- hosts: palo_alto
+  connection: local
+
+  tasks:
+    - name: Implement Http/https permit policy
+      panos_security_policy:
+        ip_address: "{{ ansible_ssh_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+
+        rule_name: 'permit_http_https'
+        source: ['132.200.20.20']
+        service: ['service-http', 'service-https']
+        action: 'allow'
+        commit: false
+

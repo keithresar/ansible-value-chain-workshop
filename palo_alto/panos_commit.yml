@@ -1,0 +1,11 @@
+- hosts: palo_alto
+  connection: local
+
+  tasks:
+    - name: Commit staged changes
+      panos_commit:
+        ip_address: "{{ ansible_ssh_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+
+
